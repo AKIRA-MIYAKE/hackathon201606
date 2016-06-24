@@ -5,7 +5,7 @@ import kuromoji from 'kuromoji';
 
 const dicPath = path.resolve(__dirname, '../../../node_modules/kuromoji/dist/dict');
 
-let sharedInstance = null;
+let sharedInstance = undefined;
 
 
 function createInstance() {
