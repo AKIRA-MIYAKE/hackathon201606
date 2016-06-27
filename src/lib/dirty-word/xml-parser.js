@@ -11,60 +11,58 @@ function fairXMLObject(input) {
   let output = undefined;
 
   switch (typeof unboxed) {
-  case 'object':
-    if (Array.isArray(unboxed)) {
-      output = unboxed.map((child) => {
-        return fairXMLObject(child);
-      });
-    } else {
-      output = {};
-      Object.keys(unboxed).forEach((key) => {
-        switch (key) {
-        case 'housouKinshiYougoList':
-          output = Object.assign(output, fairXMLObject(unboxed[key]));
-          break;
-        case 'dirtyWord':
-          output[key] = unboxed[key].map((child) => {
-            let temp = {};
-            Object.keys(child).forEach((key) => {
-              switch (key) {
-              case 'word':
-                temp = Object.assign(temp, fairXMLObject(child[key][0]));
-                break;
-              case 'replaceWordList':
-                temp[key] = fairXMLObject(child[key][0].word)
-                break;
-              case 'notes':
-                temp[key] = fairXMLObject(child[key][0]);
-                break;
-              default:
-                temp[key] = fairXMLObject(child[key]);
-                break;
-              }
-            });
+    case 'object':
+      if (Array.isArray(unboxed)) {
+        output = unboxed.map((child) => fairXMLObject(child));
+      } else {
+        output = {};
+        Object.keys(unboxed).forEach((key) => {
+          switch (key) {
+            case 'housouKinshiYougoList':
+              output = Object.assign(output, fairXMLObject(unboxed[key]));
+              break;
+            case 'dirtyWord':
+              output[key] = unboxed[key].map((child) => {
+                let temp = {};
+                Object.keys(child).forEach((childKey) => {
+                  switch (childKey) {
+                    case 'word':
+                      temp = Object.assign(temp, fairXMLObject(child[childKey][0]));
+                      break;
+                    case 'replaceWordList':
+                      temp[key] = fairXMLObject(child[childKey][0].word);
+                      break;
+                    case 'notes':
+                      temp[key] = fairXMLObject(child[childKey][0]);
+                      break;
+                    default:
+                      temp[key] = fairXMLObject(child[childKey]);
+                      break;
+                  }
+                });
 
-            return temp;
-          });
-          break;
-        case 'word':
-          output = Object.assign(output, fairXMLObject(unboxed[key]));
-          break;
-        case '_':
-          output.value = fairXMLObject(unboxed[key]);
-          break;
-        case '$':
-          output.attributes = fairXMLObject(unboxed[key]);
-          break;
-        default:
-          output[key] = fairXMLObject(unboxed[key]);
-          break;
-        }
-      });
-    }
-    break;
-  default:
-    output = unboxed;
-    break;
+                return temp;
+              });
+              break;
+            case 'word':
+              output = Object.assign(output, fairXMLObject(unboxed[key]));
+              break;
+            case '_':
+              output.value = fairXMLObject(unboxed[key]);
+              break;
+            case '$':
+              output.attributes = fairXMLObject(unboxed[key]);
+              break;
+            default:
+              output[key] = fairXMLObject(unboxed[key]);
+              break;
+          }
+        });
+      }
+      break;
+    default:
+      output = unboxed;
+      break;
   }
 
   return output;

@@ -10,8 +10,8 @@ let sharedInstance = undefined;
 
 function createInstance() {
   return Promise.resolve()
-  .then(() => {
-    return new Promise((resolve, reject) => {
+  .then(
+    () => new Promise((resolve, reject) => {
       kuromoji.builder({ dicPath })
       .build((error, tokenizer) => {
         if (error) {
@@ -20,8 +20,8 @@ function createInstance() {
 
         resolve(tokenizer);
       });
-    });
-  });
+    })
+  );
 }
 
 
