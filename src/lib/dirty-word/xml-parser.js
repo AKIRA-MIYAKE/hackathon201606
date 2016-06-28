@@ -30,13 +30,13 @@ function fairXMLObject(input) {
                       temp = Object.assign(temp, fairXMLObject(child[childKey][0]));
                       break;
                     case 'replaceWordList':
-                      temp[key] = fairXMLObject(child[childKey][0].word);
+                      temp[childKey] = fairXMLObject(child[childKey][0].word);
                       break;
                     case 'notes':
-                      temp[key] = fairXMLObject(child[childKey][0]);
+                      temp[childKey] = fairXMLObject(child[childKey][0]);
                       break;
                     default:
-                      temp[key] = fairXMLObject(child[childKey]);
+                      temp[childKey] = fairXMLObject(child[childKey]);
                       break;
                   }
                 });
