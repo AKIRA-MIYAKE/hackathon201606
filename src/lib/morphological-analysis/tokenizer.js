@@ -5,10 +5,8 @@ import kuromoji from 'kuromoji';
 
 const dicPath = path.resolve(__dirname, '../../../node_modules/kuromoji/dist/dict');
 
-let sharedInstance = undefined;
 
-
-function createInstance() {
+export function createTokenizer() {
   return Promise.resolve()
   .then(
     () => new Promise((resolve, reject) => {
@@ -22,20 +20,4 @@ function createInstance() {
       });
     })
   );
-}
-
-
-export function sharedTokenizer() {
-  return Promise.resolve()
-  .then(() => {
-    if (sharedInstance) {
-      return sharedInstance;
-    }
-
-    return createInstance()
-    .then((tokenizer) => {
-      sharedInstance = tokenizer;
-      return tokenizer;
-    });
-  });
-}
+};

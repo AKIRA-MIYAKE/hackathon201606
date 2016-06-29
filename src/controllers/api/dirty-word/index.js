@@ -1,6 +1,6 @@
 import express from 'express';
 
-import Checker from '../../../lib/dirty-word/checker';
+import { check } from '../../../lib/dirty-word';
 
 /* eslint-disable */
 const router = express.Router();
@@ -8,12 +8,22 @@ const router = express.Router();
 
 router.get('/check/:text', (req, res) => {
   const text = req.params.text;
-  const checker = new Checker(text);
 
   Promise.resolve()
-  .then(() => {
-    return checker.check();
-  }).then((result) => {
+  .then(() => check(text))
+  .then((result) => {
+    res.send(result);
+  }).catch((error) => {
+    next(error);
+  });
+});
+
+router.post('/check', (req, res) => {
+  const text = req.body.text;
+
+  Promise.resolve()
+  .then(() => check(text))
+  .then((result) => {
     res.send(result);
   }).catch((error) => {
     next(error);
