@@ -1,13 +1,13 @@
 import assert from 'power-assert';
 
-import { sharedList, sharedRetriver, check } from '../dirty-word';
+import { sharedList, sharedRetriever, check } from '../dirty-word';
 
 
 describe('lib/dirty-word', () => {
 
   describe('check()', () => {
 
-    it('should return dirty word list that retrived from target text.', () => {
+    it('should return dirty word list that retrieved from target text.', () => {
       const target = `
       　……やッ……院長さんですか。どうもお邪魔します。
       　ええ。早速ですが私の精神状態も、御蔭様おかげさまでヤット回復致しましたから、今日限り退院さして頂こうと思いまして、実は御相談に参りました次第ですが……どうも永々御厄介ごやっかいに相成りまして、何とも御礼の申上げようがありません。……ええ。それから入院料の方は、自宅うちへ帰りましてから早速、お届けする事に致したいと思いますが……。

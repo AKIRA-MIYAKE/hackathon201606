@@ -36,7 +36,7 @@ function _compareTokenizedWord(source, target) {
 }
 
 
-export default class Retriver {
+export default class Retrieve {
 
   constructor(criteria = []) {
     this.criteria = criteria;
@@ -62,7 +62,7 @@ export default class Retriver {
     });
   }
 
-  retrive(target = '') {
+  retrieve(target = '') {
     let matchedCriterionIndexes = new Set();
 
     const tokenizedTarget = this.tokenizer.tokenize(target);

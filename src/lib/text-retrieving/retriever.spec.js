@@ -1,20 +1,20 @@
 import assert from 'power-assert';
 
-import Retriver from './retriver';
+import Retriever from './retriever';
 
 
-describe('lib/text-retriving', () => {
+describe('lib/text-retrieving', () => {
 
-  describe('Retriver', () => {
+  describe('Retrieve', () => {
 
     describe('prepare()', () => {
 
       it('shoud return prepared instance with promise.', () => {
-        const retriver = new Retriver();
-        return retriver.prepare()
-        .then((preparedRetriver) => {
-          assert.ok(preparedRetriver.isReady);
-          assert.deepEqual(retriver, preparedRetriver);
+        const retriever = new Retriever();
+        return retriever.prepare()
+        .then((preparedRetriever) => {
+          assert.ok(preparedRetriever.isReady);
+          assert.deepEqual(retriever, preparedRetriever);
         });
       });
 
@@ -22,7 +22,7 @@ describe('lib/text-retriving', () => {
 
   });
 
-  describe('retrive()', () => {
+  describe('retrieve()', () => {
 
     const criterion = [
       'バナナ',
@@ -33,9 +33,9 @@ describe('lib/text-retriving', () => {
     it('should return matched indexes of criterion.', () => {
       const target = 'テキスト検索が正常に実行できるかのテスト。';
 
-      return new Retriver(criterion).prepare()
-      .then((retriver) => {
-        const indexes = retriver.retrive(target);
+      return new Retriever(criterion).prepare()
+      .then((retriever) => {
+        const indexes = retriever.retrieve(target);
 
         assert.ok(indexes.length === 2);
         indexes.forEach((index) => {
@@ -53,12 +53,12 @@ describe('lib/text-retriving', () => {
       });
     });
 
-    it('should retrive word of orthographical variants', () => {
+    it('should retrieve word of orthographical variants', () => {
       const target = 'テキストけんさくで表記ゆれがあってもマッチング可能か。あとバナナ。';
 
-      return new Retriver(criterion).prepare()
-      .then((retriver) => {
-        const indexes = retriver.retrive(target);
+      return new Retriever(criterion).prepare()
+      .then((retriever) => {
+        const indexes = retriever.retrieve(target);
 
         assert.ok(indexes.length === 1);
         indexes.forEach((index) => {

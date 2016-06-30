@@ -5,11 +5,11 @@ import 'isomorphic-fetch';
 
 
 import XMLParser from './xml-parser';
-import Retriver from '../text-retriving/retriver';
+import Retriever from '../text-retrieving/retriever';
 
 
 let _sharedListInstance = undefined;
-let _sharedRetriverInstance = undefined;
+let _sharedRetrieverInstance = undefined;
 
 
 function _fetchList() {
@@ -52,20 +52,20 @@ function _sharedList() {
 }
 
 
-function _sharedRetriver() {
+function _sharedRetriever() {
   return Promise.resolve()
   .then(() => {
-    if (_sharedRetriverInstance) {
-      return _sharedRetriverInstance;
+    if (_sharedRetrieverInstance) {
+      return _sharedRetrieverInstance;
     }
 
     return _sharedList()
     .then((list) => {
       const criterion = list.dirtyWord.map((word) => word.value);
-      return new Retriver(criterion).prepare()
-    }).then((retriver) => {
-      _sharedRetriverInstance = retriver;
-      return retriver;
+      return new Retriever(criterion).prepare()
+    }).then((retriever) => {
+      _sharedRetrieverInstance = retriever;
+      return retriever;
     });
   });
 }
@@ -74,9 +74,9 @@ function _sharedRetriver() {
 export function check(text = '') {
   return Promise.all([
     _sharedList(),
-    _sharedRetriver()
-  ]).then(([list, retriver]) => {
-    return retriver.retrive(text)
+    _sharedRetriever()
+  ]).then(([list, retriever]) => {
+    return retriever.retrieve(text)
     .map((matchedIndex) => list.dirtyWord[matchedIndex]);
   });
 }
