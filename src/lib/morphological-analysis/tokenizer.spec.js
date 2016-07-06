@@ -1,33 +1,25 @@
 import assert from 'power-assert';
 
-import { sharedTokenizer } from './tokenizer';
+import { createTokenizer } from './tokenizer';
 
 
 describe('lib/morphological-analysis', () => {
 
   describe('tokenizer', () => {
 
-    describe('sharedTokenizer()', () => {
+    describe('createTokenizer()', () => {
 
-      it('should return shared tokenizer with promise.', () => {
-        let tokenizer1 = null;
-        let tokenizer2 = null;
-
-        return sharedTokenizer()
+      it('should return tokenizer.', () => {
+        return createTokenizer()
         .then((tokenizer) => {
-          tokenizer1 = tokenizer;
-          return sharedTokenizer();
-        }).then((tokenizer) => {
-          tokenizer2 = tokenizer;
-
-          assert.deepEqual(tokenizer1, tokenizer2);
+          assert.ok(tokenizer);
         });
       });
 
     });
 
     it('should get result form tokenizer.', () => {
-      return sharedTokenizer()
+      return createTokenizer()
       .then((tokenizer) => {
         const result = tokenizer.tokenize('黒文字');
         assert.equal(result[0].pos, '名詞');

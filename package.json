@@ -28,7 +28,7 @@
     "lint": "eslint --ignore-pattern '**/*\\.spec.js' './src/**/*.{js,jsx}'; exit 0",
     "lint:watch": "watch 'npm run lint' ./src",
     "test": "mocha --compilers js:espower-babel/guess --timeout 5000 './src/**/*\\.spec.js'; exit 0",
-    "test:watch": "mocha --compilers js:espower-babel/guess --watch './src/**/*\\.spec.js'",
+    "test:watch": "mocha --compilers js:espower-babel/guess --timeout 5000 --watch './src/**/*\\.spec.js'",
     "styleguide": "node ./scripts/styleguide",
     "jsdoc": "jsdoc --recurse ./src --destination ./jsdoc",
     "nodemon": "nodemon --watch ./dist",
@@ -58,6 +58,7 @@
     "isomorphic-fetch": "^2.2.1",
     "kuromoji": "0.0.5",
     "log4js": "^0.6.36",
+    "multer": "^1.1.0",
     "node-sass": "^3.7.0",
     "passport": "^0.3.2",
     "postcss-cssnext": "^2.5.2",
@@ -73,7 +74,8 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.0",
-    "workerify": "^0.3.0"
+    "workerify": "^0.3.0",
+    "xml2js": "^0.4.16"
   },
   "devDependencies": {
     "eslint": "^2.9.0",

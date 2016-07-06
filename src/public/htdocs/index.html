@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hackathon!!</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+
+  <header>
+    <div class="container my2">
+      <h1 class="h1">放送禁止用語チェッカー</h1>
+    </div>
+  </header>
+
+  <section>
+    <div class="container">
+      <div class="col col-6 pr2">
+        <button class="btn btn-primary mb1" id="js-recording-button">音声認識開始</button>
+        <div class="form-group" id="js-text-form-group">
+          <textarea rows="10" class="form-group__control col-12 disabled" id="js-text-textview"></textarea>
+        </div>
+      </div>
+      <div class="col col-6 pl2">
+        <div class="mb2 clearfix">
+          <p class="h3 inline-block left">検出された用語</p>
+          <button class="btn btn-warning btn-sm right" id="js-reset-button">リセット</button>
+        </div>
+        <ul class="list-reset" id="js-dirty-word-list">
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="/javascripts/recorder.js"></script>
+  <script src="/javascripts/recaius-speech-recognition-import.js"></script>
+  <script src="/javascripts/speech2text.js"></script>
+  <script>
+    $(function() {
+      $('#js-reset-button').on('click', function() {
+        $('#js-text-textview').val('');
+        $('#js-dirty-word-list').empty();
+      });
+    })
+  </script>
+
+</body>
+</html>

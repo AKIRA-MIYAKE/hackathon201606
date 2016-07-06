@@ -5,13 +5,11 @@ import kuromoji from 'kuromoji';
 
 const dicPath = path.resolve(__dirname, '../../../node_modules/kuromoji/dist/dict');
 
-let sharedInstance = null;
 
-
-function createInstance() {
+export function createTokenizer() {
   return Promise.resolve()
-  .then(() => {
-    return new Promise((resolve, reject) => {
+  .then(
+    () => new Promise((resolve, reject) => {
       kuromoji.builder({ dicPath })
       .build((error, tokenizer) => {
         if (error) {
@@ -20,22 +18,6 @@ function createInstance() {
 
         resolve(tokenizer);
       });
-    });
-  });
-}
-
-
-export function sharedTokenizer() {
-  return Promise.resolve()
-  .then(() => {
-    if (sharedInstance) {
-      return sharedInstance;
-    }
-
-    return createInstance()
-    .then((tokenizer) => {
-      sharedInstance = tokenizer;
-      return tokenizer;
-    });
-  });
-}
+    })
+  );
+};
